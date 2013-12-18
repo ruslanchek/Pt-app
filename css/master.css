@@ -1,0 +1,282 @@
+/* @group Imports */
+@import url(kube.css);
+/* @end */
+
+
+/* @group Fonts */
+@import url(http://fonts.googleapis.com/css?family=Exo+2:400,200italic,200,400italic,600,600italic,100,100italic,300,300italic,500,500italic,700,700italic,800,800italic,900,900italic&subset=latin,cyrillic,latin-ext);
+/* @end */
+
+
+/* @group Typography */
+body {
+	font-family: 'Exo 2', sans-serif;
+}
+
+h1, h2, h3, h4 {
+	font-family: 'Exo 2', sans-serif;
+}
+/* @end */
+
+
+/* @group General */
+.table-container {
+	margin: 0 auto;
+	min-width: 1200px;
+	max-width: 1400px;
+}
+
+.elements {
+	margin: 45px;
+}
+/* @end */
+
+
+/* @group Col unit sizes */
+.unit-1 {
+	width: 8.090909%;
+	margin: 0 1% 0 0;
+}
+
+.unit-2 {
+	width: 17.181818%;
+	margin: 0 1% 0 0;
+}
+
+.unit-3 {
+	width: 26.272727%;
+	margin: 0 1% 0 0;
+}
+
+.unit-4 {
+	width: 35.363636%;
+	margin: 0 1% 0 0;
+}
+
+.unit-5 {
+	width: 44.454545%;
+	margin: 0 1% 0 0;
+}
+/* @end */
+
+
+/* @group Header */
+.elements .header-row {
+	padding: 10px;
+}
+
+.elements .header-row h2 {
+	color: #ddd;
+	text-transform: uppercase;
+	letter-spacing: 1.05ex;
+	text-align: center;
+	font-weight: 100;
+	font-size: 1.85em;	
+}
+
+.elements .header-row .col-num {
+	float: left;
+	height: 30px;
+}
+
+.elements .header-row .col-num span {
+	display: block;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	font-size: 1.25em;
+	font-weight: 300;
+	color: #ccc;
+	border-radius: 3px;
+	border: 1px solid transparent;
+}
+
+.elements .header-row .col-num.hl span {
+	border-color: rgba(166, 207, 239, 0.5);
+	color: rgb(166, 207, 239);
+}
+/* @end */
+
+
+/* @group Rows and nums layout */
+.elements .period-row {
+	padding: 10px;
+	border-radius: 4px;
+	border: 1px solid rgba(221, 221, 221, 0);
+	margin: 0;
+	margin-top: -1px;
+	position: relative;
+}
+
+.elements .period-row .period-name {
+	width: 84px;
+	
+	-webkit-transform: rotate(-90deg);
+	-moz-transform: rotate(-90deg);
+	-ms-transform: rotate(-90deg);
+	-o-transform: rotate(-90deg);
+	transform: rotate(-90deg);
+	
+	-webkit-transform-origin: left top;
+	-moz-transform-origin: 0 0;
+	-ms-transform-origin: 0 0;
+	-o-transform-origin: 0 0;
+	transform-origin: 0 0;
+	
+	-webkit-border-radius: 4px 4px 0 0;
+	border-radius: 3px 3px 0 0;
+	  
+	font-weight: 200;
+	font-size: 1em;
+	position: absolute;
+	height: 24px;
+	line-height: 24px;
+	left: -25px;
+	top: 50%;
+	margin-top: 43px;
+	border: 1px solid rgba(221, 221, 221, 0);
+	border-bottom: none;
+	background: #fff;
+	text-align: center;
+	color: rgba(204, 204, 204, 0);
+	z-index: 2;
+	display: block;
+	color
+}
+
+.elements .period-row:hover {
+	border-color: rgba(221, 221, 221, 1);
+}
+
+.elements .period-row:hover .period-name {
+	border-color: rgba(221, 221, 221, 1);
+	color: rgba(204, 204, 204, 1);
+}
+
+.elements .row-height {
+	height: 85px; /* Overall elements height in a row */
+}
+
+.elements .row {
+	clear: both;
+	text-align: center;
+	position: relative;
+	margin-left: 46px;
+}
+
+.elements .row .row-num {
+	position: absolute;
+	left: -46px;
+	width: 36px;
+	line-height: 85px; /* Value must be the same with a .row-height height */
+}
+
+.elements .row .row-num span {
+	border-radius: 3px;
+	border: 1px solid transparent;
+	color: #ccc;
+	display: block;
+	font-size: 1.25em;
+	font-weight: 300;
+}
+
+.elements .row .row-num.hl span {
+	border-color: rgba(166, 207, 239, 0.5);
+	color: rgb(166, 207, 239);
+}
+
+.elements .spacer {
+	float: left;
+}
+
+.elements .row-breaker {
+	height: 20px;
+}
+/* @end */
+
+
+/* @group Element */
+.elements .element {
+	float: left;
+}
+
+.elements .element a {
+	border: 1px solid rgba(211, 211, 211, 0.5);
+	display: block;
+	height: 100%;
+	border-radius: 3px;
+	text-decoration: none;
+	color: #777;
+	text-align: center;
+	position: relative;
+	background: rgba(254, 254, 254, 1);
+	
+	-webkit-transition: all 100ms cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	   -moz-transition: all 100ms cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	     -o-transition: all 100ms cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	        transition: all 100ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
+	
+	-webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	   -moz-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	     -o-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	        transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+}
+
+.elements .element a:hover {
+	border: 1px solid rgba(12, 172, 254, 0.69);
+	opacity: 1;
+}
+
+.elements .element a .name {
+	font-size: 3em;
+	display: block;
+	padding: 20px 0 3px;
+	font-weight: 500;
+}
+
+.elements .element a .title {
+	font-size: 0.85em;
+	display: block;
+	font-weight: 300;
+}
+
+.elements .element a .number {
+	position: absolute;
+	top: 0;
+	right: 7px;
+	font-weight: 200;
+	font-size: 0.85em;
+	text-align: right;
+}
+
+.elements .element a .mass {
+	font-size: 0.65em;
+	display: block;
+	font-weight: 400;
+	position: absolute;
+	text-align: center;
+	bottom: 0;
+	width: 100%;
+	color: #888;
+	opacity: 0.8;
+}
+
+.elements .element a:hover {
+	z-index: 10;
+}
+/* @end */
+
+
+/* @group Animations */
+.all-300-ease-out-cubic {
+	-webkit-transition: all 300ms cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	   -moz-transition: all 300ms cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	     -o-transition: all 300ms cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	        transition: all 300ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
+	
+	-webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	   -moz-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	     -o-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	        transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+}
+/* @end */
