@@ -300,22 +300,6 @@ header .logo-place p {
 	color: rgb(166, 207, 239);
 }
 
-.elements .spacer {
-	float: left;
-	position: relative;
-}
-
-.elements .spacer span {
-	height: 16px;
-	width: 16px;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin: -8px 0 0 -8px;
-	background: rgba(245, 245, 245, 1);
-	border-radius: 8px;
-}
-
 .elements .row-breaker {
 	height: 20px;
 }
@@ -357,12 +341,13 @@ header .logo-place p {
 	color: #777;
 	text-align: center;
 	position: relative;
+	z-index: 3;
 	background: rgba(254, 254, 254, 1);
 	
-	-webkit-transition: all 100ms cubic-bezier(0.215, 0.610, 0.355, 1.000); 
-	   -moz-transition: all 100ms cubic-bezier(0.215, 0.610, 0.355, 1.000); 
-	     -o-transition: all 100ms cubic-bezier(0.215, 0.610, 0.355, 1.000); 
-	        transition: all 100ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
+	-webkit-transition: all 150ms cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	   -moz-transition: all 150ms cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	     -o-transition: all 150ms cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	        transition: all 150ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
 	
 	-webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000); 
 	   -moz-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000); 
@@ -421,6 +406,46 @@ header .logo-place p {
 
 .elements .element a:hover {
 	z-index: 10;
+}
+
+
+.elements .spacer,
+.elements .disabled {
+	float: left;
+	position: relative;
+}
+
+.elements .spacer:after,
+.elements .disabled:after {
+	content: "";
+	height: 16px;
+	width: 16px;
+	position: absolute;
+	z-index: 2;
+	top: 50%;
+	left: 50%;
+	margin: -8px 0 0 -8px;
+	background: rgba(245, 245, 245, 1);
+	border-radius: 8px;
+}
+
+.elements .spacer a,
+.elements .disabled a {
+	-webkit-transition: all 300ms cubic-bezier(0.925, 0, 0.735, 0.045); /* older webkit */
+	-webkit-transition: all 300ms cubic-bezier(0.925, -0.200, 0.735, 0.045); 
+	   -moz-transition: all 300ms cubic-bezier(0.925, -0.200, 0.735, 0.045); 
+	     -o-transition: all 300ms cubic-bezier(0.925, -0.200, 0.735, 0.045); 
+	        transition: all 300ms cubic-bezier(0.925, -0.200, 0.735, 0.045); /* custom */
+	
+	-webkit-transition-timing-function: cubic-bezier(0.925, 0, 0.735, 0.045); /* older webkit */
+	-webkit-transition-timing-function: cubic-bezier(0.925, -0.200, 0.735, 0.045); 
+	   -moz-transition-timing-function: cubic-bezier(0.925, -0.200, 0.735, 0.045); 
+	     -o-transition-timing-function: cubic-bezier(0.925, -0.200, 0.735, 0.045); 
+	        transition-timing-function: cubic-bezier(0.925, -0.200, 0.735, 0.045); /* custom */
+	        
+	transform: scale(0) rotate(150deg);
+	-ms-transform: scale(0) rotate(150deg);
+	-webkit-transform: scale(0) rotate(150deg);
 }
 /* @end */
 
