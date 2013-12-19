@@ -11,10 +11,59 @@
 /* @group Typography */
 body {
 	font-family: 'Exo 2', sans-serif;
+	background: rgba(253, 253, 253, 1);
+	font-size: 14px;
+	padding: 0 20px;
 }
 
 h1, h2, h3, h4 {
 	font-family: 'Exo 2', sans-serif;
+}
+
+.lead {
+	font-size: 2em;
+	font-weight: 100;
+	color: #bbb;
+}
+/* @end */
+
+
+/* @group Header */
+header {
+	padding: 30px 45px 33px;
+}
+
+header .logo-place {
+	font-size: 12px;
+	padding-left: 107px;
+	position: relative;
+}
+
+header .logo-place .logo {
+	width: 85px;
+	height: 85px;
+	line-height: 83px;
+	font-weight: 500;
+	color: rgba(255, 255, 255, 1);
+	font-family: 'Exo 2', sans-serif;
+	font-size: 45px;
+	text-align: center;
+	background-color: #75a95a;
+	position: absolute;
+	left: 0px;
+	top: -2px;
+	border-radius: 3px;
+}
+
+header .logo-place h1 {
+	font-size: 3em;
+	margin: 0em;
+	font-weight: 200;
+	color: #777;
+}
+
+header .logo-place p {
+	margin: 0;
 }
 /* @end */
 
@@ -22,12 +71,15 @@ h1, h2, h3, h4 {
 /* @group General */
 .table-container {
 	margin: 0 auto;
-	min-width: 1200px;
-	max-width: 1400px;
+	min-width: 1150px;
+	max-width: 1440px;
 }
 
 .elements {
-	margin: 45px;
+	padding: 25px 22px 35px 45px;
+	border: 1px solid #f0f0f0;
+	border-radius: 5px;
+	background: #fff;
 }
 /* @end */
 
@@ -57,21 +109,42 @@ h1, h2, h3, h4 {
 	width: 44.454545%;
 	margin: 0 1% 0 0;
 }
+
+.unit-6 {
+	width: 53.545454%;
+	margin: 0 1% 0 0;
+}
+
+.unit-7 {
+	width: 62.636363%;
+	margin: 0 1% 0 0;
+}
+
+.unit-8 {
+	width: 71.727272%;
+	margin: 0 1% 0 0;
+}
+
+.unit-9 {
+	width: 80.818181%;
+	margin: 0 1% 0 0;
+}
+
+.unit-10 {
+	width: 89.90909%;
+	margin: 0 1% 0 0;
+}
+
+.unit-11 {
+	width: 100%;
+	margin: 0;
+}
 /* @end */
 
 
 /* @group Header */
 .elements .header-row {
-	padding: 10px;
-}
-
-.elements .header-row h2 {
-	color: #ddd;
-	text-transform: uppercase;
-	letter-spacing: 1.05ex;
-	text-align: center;
-	font-weight: 100;
-	font-size: 1.85em;	
+	padding: 10px 10px 12px;
 }
 
 .elements .header-row .col-num {
@@ -81,6 +154,7 @@ h1, h2, h3, h4 {
 
 .elements .header-row .col-num span {
 	display: block;
+	position: relative;
 	height: 30px;
 	line-height: 30px;
 	text-align: center;
@@ -88,19 +162,51 @@ h1, h2, h3, h4 {
 	font-weight: 300;
 	color: #ccc;
 	border-radius: 3px;
-	border: 1px solid transparent;
+	border: 1px solid rgba(166, 207, 239, 0);
+	
+	-webkit-transition: all 100ms cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	   -moz-transition: all 100ms cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	     -o-transition: all 100ms cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	        transition: all 100ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
+	
+	-webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	   -moz-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	     -o-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	        transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
 }
 
 .elements .header-row .col-num.hl span {
 	border-color: rgba(166, 207, 239, 0.5);
 	color: rgb(166, 207, 239);
 }
+
+.elements .header-row .col-num span i {
+	position: absolute;
+	opacity: 0;
+	right: 7px;
+	text-align: right;
+	font-style: normal;
+	
+	-webkit-transition: all 100ms cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	   -moz-transition: all 100ms cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	     -o-transition: all 100ms cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	        transition: all 100ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
+	
+	-webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	   -moz-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	     -o-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	        transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+}
+
+.elements .header-row .col-num.hl span i {
+	opacity: 1;
+}
 /* @end */
 
 
 /* @group Rows and nums layout */
 .elements .period-row {
-	padding: 10px;
+	padding: 9px 10px 10px;
 	border-radius: 4px;
 	border: 1px solid rgba(221, 221, 221, 0);
 	margin: 0;
@@ -133,7 +239,7 @@ h1, h2, h3, h4 {
 	line-height: 24px;
 	left: -25px;
 	top: 50%;
-	margin-top: 43px;
+	margin-top: 42px;
 	border: 1px solid rgba(221, 221, 221, 0);
 	border-bottom: none;
 	background: #fff;
@@ -144,17 +250,17 @@ h1, h2, h3, h4 {
 	color
 }
 
-.elements .period-row:hover {
+.elements.period-hover-enabled .period-row:hover {
 	border-color: rgba(221, 221, 221, 1);
 }
 
-.elements .period-row:hover .period-name {
+.elements.period-hover-enabled .period-row:hover .period-name {
 	border-color: rgba(221, 221, 221, 1);
 	color: rgba(204, 204, 204, 1);
 }
 
 .elements .row-height {
-	height: 85px; /* Overall elements height in a row */
+	height: 90px; /* Overall elements height in a row */
 }
 
 .elements .row {
@@ -168,7 +274,7 @@ h1, h2, h3, h4 {
 	position: absolute;
 	left: -46px;
 	width: 36px;
-	line-height: 85px; /* Value must be the same with a .row-height height */
+	line-height: 90px; /* Value must be the same with a .row-height height */
 }
 
 .elements .row .row-num span {
@@ -178,6 +284,15 @@ h1, h2, h3, h4 {
 	display: block;
 	font-size: 1.25em;
 	font-weight: 300;
+	-webkit-transition: all 100ms cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	   -moz-transition: all 100ms cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	     -o-transition: all 100ms cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	        transition: all 100ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
+	
+	-webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	   -moz-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	     -o-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000); 
+	        transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
 }
 
 .elements .row .row-num.hl span {
@@ -187,6 +302,18 @@ h1, h2, h3, h4 {
 
 .elements .spacer {
 	float: left;
+	position: relative;
+}
+
+.elements .spacer span {
+	height: 16px;
+	width: 16px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -8px 0 0 -8px;
+	background: rgba(245, 245, 245, 1);
+	border-radius: 8px;
 }
 
 .elements .row-breaker {
@@ -194,6 +321,27 @@ h1, h2, h3, h4 {
 }
 /* @end */
 
+/* @group Element type colors */
+.element-type-s {
+	color: #FF669A;
+}
+
+.element-type-p {
+	color: #FFD900;
+}
+
+.element-type-d {
+	color: #5BC8FF;
+}
+
+.element-type-fl {
+	color: #FFD900;
+}
+
+.element-type-fa {
+	color: #FFD900;
+}
+/* @end */
 
 /* @group Element */
 .elements .element {
@@ -227,38 +375,48 @@ h1, h2, h3, h4 {
 	opacity: 1;
 }
 
+.elements .element a .sub {
+	position: absolute;
+	top: -1px;
+	right: 5px;
+	text-align: right;
+	font-weight: 200;
+	font-size: 0.85em;
+	color: rgba(190, 190, 190, 1);
+}
+
 .elements .element a .name {
 	font-size: 3em;
 	display: block;
-	padding: 20px 0 3px;
+	padding: 20px 0 10px;
 	font-weight: 500;
 }
 
 .elements .element a .title {
-	font-size: 0.85em;
+	font-size: 0.9em;
 	display: block;
 	font-weight: 300;
 }
 
 .elements .element a .number {
 	position: absolute;
-	top: 0;
-	right: 7px;
+	top: -1px;
+	left: 5px;
 	font-weight: 200;
 	font-size: 0.85em;
-	text-align: right;
+	color: rgba(190, 190, 190, 1);
 }
 
 .elements .element a .mass {
-	font-size: 0.65em;
+	font-size: 0.7em;
 	display: block;
-	font-weight: 400;
+	font-weight: 200;
 	position: absolute;
 	text-align: center;
 	bottom: 0;
 	width: 100%;
-	color: #888;
-	opacity: 0.8;
+	color: rgba(190, 190, 190, 1);
+	opacity: 1;
 }
 
 .elements .element a:hover {
