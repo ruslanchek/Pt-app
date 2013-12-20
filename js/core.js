@@ -37,7 +37,7 @@ var core = {
 			}
 		}
 	
-		return '<div class="element unit-' + data.width + ' row-height" data-id="' + data.id + '" data-period="' + data.period + '" data-group="' + data.group + '" data-row="' + data.row + '" data-sub="' + data.sub + '">' + 
+		return '<div class="element unit-' + data.width + ' row-height' + ((data.compressed === true) ? ' compressed' : '') + ((data.temporary === true) ? ' temporary' : '') + '" data-id="' + data.id + '" data-period="' + data.period + '" data-group="' + data.group + '" data-row="' + data.row + '" data-sub="' + data.sub + '" data-number="' + data.number + '">' + 
 					'<a href="#">' + 
 						'<span class="sub">' + data.sub + '</span>' + 
 						'<span class="number">' + data.number + '</span>' + 
@@ -58,8 +58,8 @@ var core = {
 				mass = data.mass;
 			}
 		}
-	
-		return '<div class="element unit-1 row-height" data-id="' + data.id + '">' + 
+			
+		return '<div class="element unit-1 row-height' + ((data.compressed === true) ? ' compressed' : '') + ((data.temporary === true) ? ' temporary' : '') + '" data-id="' + data.id + '" data-number="' + data.number + '">' + 
 					'<a href="#">' + 
 						'<span class="number">' + data.number + '</span>' + 
 						'<span class="name element-type-' + data.type + '">' + data.name + '</span>' + 
@@ -82,7 +82,7 @@ var core = {
 	},
 	
 	createLinkHTML: function (data) {
-		return '<div class="element link unit-' + data.width + ' row-height" data-id="' + data.id + '" data-period="' + data.period + '" data-group="' + data.group + '" data-row="' + data.row + '" data-sub="' + data.sub + '">' + 
+		return '<div class="element link unit-' + data.width + ' row-height' + ((data.compressed === true) ? ' compressed' : '') + '" data-id="' + data.id + '" data-period="' + data.period + '" data-group="' + data.group + '" data-row="' + data.row + '" data-sub="' + data.sub + '">' + 
 					'<a href="#">' + 
 						'<span class="sub">' + data.sub + '</span>' + 
 						'<span class="number">' + data.number + '</span>' + 
@@ -95,7 +95,7 @@ var core = {
 	},
 	
 	createVoidnessHTML: function (data) {
-		return '<div class="element voidness unit-' + data.width + ' row-height" data-id="' + data.id + '" data-period="' + data.period + '" data-group="' + data.group + '" data-row="' + data.row + '" data-sub="' + data.sub + '">' + 
+		return '<div class="element voidness unit-' + data.width + ' row-height' + ((data.compressed === true) ? ' compressed' : '') + '" data-id="' + data.id + '" data-period="' + data.period + '" data-group="' + data.group + '" data-row="' + data.row + '" data-sub="' + data.sub + '">' + 
 					'<a href="#">' + 
 						'<span class="sub">' + data.sub + '</span>' + 
 						'<span class="number">' + data.number + '</span>' +
@@ -156,21 +156,102 @@ var core = {
 		});
 	},
 	
-	drawLanthanides: function() {
+	drawAdditionals: function(type) {
 		var html = '',
-			items = this.data.lanthanides;
+			elements = this.data[type];
 	
-		for(var i = 0, l = items.length; i < l; i++){	
-			html += this.createAdditionalElementHTML(items[i]);
+		for(var i = 0, l = elements.length; i < l; i++){	
+			if (elements[i].spacer === true){
+				html += this.createSpacerHTML(elements[i]);
+				
+			} else {
+				html += this.createAdditionalElementHTML(elements[i]);
+			}
 		}
 		
-		$('.lanthanides-content').html(html);
+		$('.' + type + '-content').html(html);
+	},
+	
+	goFromElementLink: function($obj){
+		var st = 0;
+	
+		switch($obj.data('id')){
+			case 79 : {
+				st = $('.lanthanides').offset().top
+			} break;
+			
+			case 102 : {
+				st = $('.actinides').offset().top
+			} break;
+			
+			case 124 : {
+				st = $('.superactinides').offset().top
+			} break;
+		}
+		
+		$('html, body').animate({
+            scrollTop: st
+        }, 600, "swing");
+	},
+	
+	getElmByNumber: function(number){
+		var e1 = jQuery.grep(this.data.elements, function(elm) {
+		  	return elm.number == number;
+		});
+		
+		var e2 = jQuery.grep(this.data.lanthanides, function(elm) {
+		  	return elm.number == number;
+		});
+		
+		var e3= jQuery.grep(this.data.actinides, function(elm) {
+		  	return elm.number == number;
+		});
+		
+		var e4 = jQuery.grep(this.data.superactinides, function(elm) {
+		  	return elm.number == number;
+		});
+		
+		if(e1[0]) return {element: e1[0], group: 'elements'};
+		if(e2[0]) return {element: e2[0], group: 'lanthanides'};
+		if(e3[0]) return {element: e3[0], group: 'actinides'};
+		if(e4[0]) return {element: e4[0], group: 'superactinides'};
+	},
+	
+	openElementInfo: function($obj){
+		var element = this.getElmByNumber($obj.data('number')),
+			$clone = $obj.addClass('cloned').clone();
+			
+		$clone.addClass('clone').appendTo('body');
+		
+		$clone.css({
+			top: $obj.find('a').offset().top - $clone.height() / 2 + $obj.find('a').height() / 2,
+			left: $obj.find('a').offset().left - $clone.width() / 2 + $obj.find('a').width() / 2
+		});
+		
+		setTimeout(function () {
+			$clone.addClass('appear all-320-ease-out-back');
+		}, 50);
+	},
+	
+	bindControls: function(){
+		$('.elements .element.link a').off('click').on('click', function(e){
+			core.goFromElementLink($(this).parent());
+			e.preventDefault();
+		});
+		
+		$('.elements .element').not('.link, .disabled, .spacer').find('a').off('click').on('click', function(e){
+			core.openElementInfo($(this).parent());
+			e.preventDefault();
+		});
 	},
 	
 	init: function() {
 		this.drawElements();
 		this.bindCoordinatesIndicator();
-		this.drawLanthanides();
+		this.drawAdditionals('lanthanides');
+		this.drawAdditionals('actinides');
+		this.drawAdditionals('superactinides');
+		this.bindControls();
 	}
 }
 

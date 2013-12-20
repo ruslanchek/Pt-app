@@ -48,7 +48,7 @@ header .logo-place .logo {
 	font-family: 'Exo 2', sans-serif;
 	font-size: 45px;
 	text-align: center;
-	background: #9E9783;
+	background: #9ebc71;
 	position: absolute;
 	left: 0px;
 	top: -2px;
@@ -72,6 +72,7 @@ header .logo-place p {
 footer {
 	padding: 20px 45px;
 	color: #999;
+	font-size: 14px;
 }
 /* @end */
 
@@ -80,7 +81,7 @@ footer {
 .table-container {
 	margin: 0 auto;
 	min-width: 1150px;
-	max-width: 1440px;
+	max-width: 1540px;
 }
 
 .elements {
@@ -94,11 +95,11 @@ footer {
 
 /* @group Col unit sizes */
 .elements .unit-1 {
-	width: 8.090909%;
-	margin: 0 1% 0 0;
+	width: 8.340909%;
+	margin: 0 0.75% 0 0;
 }
 
-.elements .unit-2 {
+/*.elements .unit-2 {
 	width: 17.181818%;
 	margin: 0 1% 0 0;
 }
@@ -106,14 +107,14 @@ footer {
 .elements .unit-3 {
 	width: 26.272727%;
 	margin: 0 1% 0 0;
-}
+}*/
 
 .elements .unit-4 {
-	width: 35.363636%;
-	margin: 0 1% 0 0;
+	width: 35.613636%;
+	margin: 0 0.75% 0 0;
 }
 
-.elements .unit-5 {
+/*.elements .unit-5 {
 	width: 44.454545%;
 	margin: 0 1% 0 0;
 }
@@ -146,7 +147,7 @@ footer {
 .elements .unit-11 {
 	width: 100%;
 	margin: 0;
-}
+}*/
 /* @end */
 
 
@@ -312,6 +313,7 @@ footer {
 }
 /* @end */
 
+
 /* @group Element type colors */
 .element-type-s {
 	color: #FF669A;
@@ -332,14 +334,20 @@ footer {
 .element-type-fa {
 	color: #359A00;
 }
+
+.element-type-fsa {
+	color: #236800;
+}
 /* @end */
 
+
 /* @group Element */
-.elements .element {
+.element {
 	float: left;
+	position: relative;
 }
 
-.elements .element a {
+.element a {
 	border: 1px solid rgba(211, 211, 211, 0.5);
 	display: block;
 	height: 100%;
@@ -347,7 +355,8 @@ footer {
 	text-decoration: none;
 	color: #777;
 	text-align: center;
-	position: relative;
+	position: absolute;
+	width: 100%;
 	z-index: 3;
 	background: rgba(254, 254, 254, 1);
 	
@@ -362,12 +371,12 @@ footer {
 	        transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
 }
 
-.elements .element a:hover {
+.element a:hover {
 	border: 1px solid rgba(12, 172, 254, 0.69);
-	opacity: 1;
+	opacity: 1 !important;
 }
 
-.elements .element a .sub {
+.element a .sub {
 	position: absolute;
 	top: -1px;
 	right: 5px;
@@ -377,21 +386,23 @@ footer {
 	color: rgba(170, 170, 170, 1);
 }
 
-.elements .element a .name {
-	font-size: 3em;
+.element a .name {
+	font-size: 2.9em;
 	display: block;
 	height: 51px;
 	line-height: 63px;
 	font-weight: 500;
+	white-space: nowrap;
 }
 
-.elements .element a .title {
+.element a .title {
 	font-size: 0.9em;
 	display: block;
 	font-weight: 300;
+	line-height: 1.2em;
 }
 
-.elements .element a .number {
+.element a .number {
 	position: absolute;
 	top: -1px;
 	left: 5px;
@@ -400,7 +411,7 @@ footer {
 	color: rgba(170, 170, 170, 1);
 }
 
-.elements .element a .mass {
+.element a .mass {
 	font-size: 0.7em;
 	display: block;
 	font-weight: 200;
@@ -412,13 +423,13 @@ footer {
 	opacity: 1;
 }
 
-.elements .element a:hover {
+.element a:hover {
 	z-index: 10;
 }
 /* @end */
 
 
-/* @group Spacer and Disabled */
+/* @group Element modifications */
 .elements .spacer,
 .elements .disabled {
 	float: left;
@@ -457,13 +468,45 @@ footer {
 	-ms-transform: scale(0) rotate(150deg);
 	-webkit-transform: scale(0) rotate(150deg);
 }
+
+
+.element.link a .name {
+	font-size: 1.4em;
+	line-height: 76px;	
+}
+
+.element.temporary a {
+	opacity: 0.65;	
+}
 /* @end */
 
 
-/* @group Elements Link */
-.elements .element.link a .name {
-	font-size: 1.4em;
-	line-height: 76px;	
+/* @group Element popup clones */
+.element.clone {
+	width: 300px;
+	height: 300px;
+	position: absolute;
+	z-index: 1000;
+	font-size: 22px;
+	opacity: 0;
+	        
+	transform: scale(0);
+	-ms-transform: scale(0);
+	-webkit-transform: scale(0);
+}
+
+.element.clone.appear {
+	transform: scale(1);
+	-ms-transform: scale(1);
+	-webkit-transform: scale(1);
+	
+	opacity: 1;
+}
+
+.element.clone a {
+	border: none !important;
+	box-shadow: 0px 5px 35px rgba(0, 0, 0, 0.3);
+	border-radius: 10px;
 }
 /* @end */
 
@@ -479,7 +522,7 @@ footer {
 	text-transform: uppercase;
 	letter-spacing: 1ex;
 	font-size: 2em;
-	margin: 0 0 0.23em;
+	margin: 1.25em 0 0.4em;
 	color: #ccc;
 }
 
@@ -506,4 +549,70 @@ footer {
 	     -o-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000); 
 	        transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
 }
+
+.all-320-ease-out-back {
+-webkit-transition: all 320ms cubic-bezier(0.175, 0.885, 0.320, 1); /* older webkit */
+-webkit-transition: all 320ms cubic-bezier(0.175, 0.885, 0.320, 1.275); 
+   -moz-transition: all 320ms cubic-bezier(0.175, 0.885, 0.320, 1.275); 
+     -o-transition: all 320ms cubic-bezier(0.175, 0.885, 0.320, 1.275); 
+        transition: all 320ms cubic-bezier(0.175, 0.885, 0.320, 1.275); /* easeOutBack */
+
+-webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1); /* older webkit */
+-webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.275); 
+   -moz-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.275); 
+     -o-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.275); 
+        transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.275); /* easeOutBack */
+}
+/* @end */
+
+
+/* @group Media queries */
+@media screen and (max-width: 1300px) {
+	body {
+		font-size: 13px;
+	}
+	
+	.elements .row-height {
+		height: 85px; /* Overall elements height in a row */
+	}
+	
+	.elements .row .row-num {
+		position: absolute;
+		left: -42px;
+		line-height: 85px; /* Value must be the same with a .row-height height */
+	}
+	
+	.element.compressed .name {
+		letter-spacing: -0.2ex;
+	}
+}
+
+@media screen and (min-width: 1300px) {
+	body {
+		font-size: 14px;
+	}
+	
+	.elements .row-height {
+		height: 90px; /* Overall elements height in a row */
+	}
+	
+	.elements .row .row-num {
+		position: absolute;
+		left: -46px;
+		line-height: 90px; /* Value must be the same with a .row-height height */
+	}
+	
+	.element .name {
+		height: 56px !important;
+	}
+	
+	.element.compressed .name {
+		letter-spacing: -0.1ex;
+	}
+	
+	.element.compressed .title {
+		letter-spacing: -0.1ex;
+	}
+}
+
 /* @end */
