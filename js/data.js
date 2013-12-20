@@ -130,6 +130,28 @@ var data_source = {
 		{period: 7, row: 11, group: 8, 	id: 96, 	spacer: true, 	width: 1},
 		{period: 7, row: 11, group: 8, 	id: 97, 	spacer: true, 	width: 1},
 		{period: 7, row: 11, group: 8, 	id: 98, 	spacer: true, 	width: 1},
-		{period: 7, row: 11, group: 8, 	id: 90, 	number: 118, 	width: 1, sub: 'A', 	name: '', 		title: '', 			mass: 0, 		type: 'd', voidness: true},
+		{period: 7, row: 11, group: 8, 	id: 90, 	number: 118, 	width: 1, sub: 'A', 	name: '', 		title: '', 			mass: 0, 		type: 'd', voidness: true}
+	],
+	
+	lanthanides: [
+		{id: 1, 	number: 57, 	name: 'La', 	title: 'Лантан', 	mass: 138.9055, 	type: 'fl'},
+		{id: 2, 	number: 58, 	name: 'Ce', 	title: 'Церий', 	mass: 140.116, 		type: 'fl'},
+		{id: 3, 	number: 59, 	name: 'Ce', 	title: 'Церий', 	mass: 140.116, 		type: 'fl'},
+		{id: 4, 	number: 60, 	name: 'Ce', 	title: 'Церий', 	mass: 140.116, 		type: 'fl'},
+		{id: 5, 	number: 61, 	name: 'Ce', 	title: 'Церий', 	mass: 140.116, 		type: 'fl'},
+		{id: 6, 	number: 62, 	name: 'Ce', 	title: 'Церий', 	mass: 140.116, 		type: 'fl'},
+		{id: 7, 	number: 63, 	name: 'Ce', 	title: 'Церий', 	mass: 140.116, 		type: 'fl'},
+		{id: 8, 	number: 64, 	name: 'Ce', 	title: 'Церий', 	mass: 140.116, 		type: 'fl'},
+		{id: 9, 	number: 65, 	name: 'Ce', 	title: 'Церий', 	mass: 140.116, 		type: 'fl'},
+		{id: 10, 	number: 66, 	name: 'Ce', 	title: 'Церий', 	mass: 140.116, 		type: 'fl'},
+		{id: 11, 	number: 67, 	name: 'Ce', 	title: 'Церий', 	mass: 140.116, 		type: 'fl'},
+		{id: 12, 	number: 68, 	name: 'Ce', 	title: 'Церий', 	mass: 140.116, 		type: 'fl'},
+		{id: 13, 	number: 69, 	name: 'Ce', 	title: 'Церий', 	mass: 140.116, 		type: 'fl'},
+		{id: 14, 	number: 70, 	name: 'Ce', 	title: 'Церий', 	mass: 140.116, 		type: 'fl'},
+		{id: 15, 	number: 71, 	name: 'Ce', 	title: 'Церий', 	mass: 140.116, 		type: 'fl'}
+	],
+	
+	actinides: [
+	
 	]
 };

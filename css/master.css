@@ -48,7 +48,7 @@ header .logo-place .logo {
 	font-family: 'Exo 2', sans-serif;
 	font-size: 45px;
 	text-align: center;
-	background-color: #75a95a;
+	background: #9E9783;
 	position: absolute;
 	left: 0px;
 	top: -2px;
@@ -93,57 +93,57 @@ footer {
 
 
 /* @group Col unit sizes */
-.unit-1 {
+.elements .unit-1 {
 	width: 8.090909%;
 	margin: 0 1% 0 0;
 }
 
-.unit-2 {
+.elements .unit-2 {
 	width: 17.181818%;
 	margin: 0 1% 0 0;
 }
 
-.unit-3 {
+.elements .unit-3 {
 	width: 26.272727%;
 	margin: 0 1% 0 0;
 }
 
-.unit-4 {
+.elements .unit-4 {
 	width: 35.363636%;
 	margin: 0 1% 0 0;
 }
 
-.unit-5 {
+.elements .unit-5 {
 	width: 44.454545%;
 	margin: 0 1% 0 0;
 }
 
-.unit-6 {
+.elements .unit-6 {
 	width: 53.545454%;
 	margin: 0 1% 0 0;
 }
 
-.unit-7 {
+.elements .unit-7 {
 	width: 62.636363%;
 	margin: 0 1% 0 0;
 }
 
-.unit-8 {
+.elements .unit-8 {
 	width: 71.727272%;
 	margin: 0 1% 0 0;
 }
 
-.unit-9 {
+.elements .unit-9 {
 	width: 80.818181%;
 	margin: 0 1% 0 0;
 }
 
-.unit-10 {
+.elements .unit-10 {
 	width: 89.90909%;
 	margin: 0 1% 0 0;
 }
 
-.unit-11 {
+.elements .unit-11 {
 	width: 100%;
 	margin: 0;
 }
@@ -464,6 +464,32 @@ footer {
 .elements .element.link a .name {
 	font-size: 1.4em;
 	line-height: 76px;	
+}
+/* @end */
+
+
+/* @group Additional */
+.additional {
+	clear: both;
+}
+
+.additional h2 {
+	font-weight: 100;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 1ex;
+	font-size: 2em;
+	margin: 0 0 0.23em;
+	color: #ccc;
+}
+
+.additional .unit-1 {
+	width: 6.26666666% !important;
+	margin: 0 0.4% 0 0;
+}
+
+.additional .additional-content {
+
 }
 /* @end */
 

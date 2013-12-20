@@ -1,14 +1,9 @@
 var core = {
 	data: data_source,
 	row_num: 0,
-
-	init: function() {
-		this.drawElements();
-		this.bindCoordinatesIndicator();
-	},
 	
-	bindCoordinatesIndicator: function() {
-		$('.elements .element').hover(function() {
+	bindCoordinatesIndicator: function () {
+		$('.elements .element').hover(function () {
 			var row = $(this).data('row'),
 				group = $(this).data('group'),
 				sub = $(this).data('sub');
@@ -25,13 +20,13 @@ var core = {
 		
 	},
 	
-	getElementsForPeriod: function(period_num){
+	getElementsForPeriod: function (period_num) {
 		return jQuery.grep(this.data.elements, function(elm) {
 		  	return elm.period == period_num;
 		});
 	},
 	
-	createElementHTML: function(data){
+	createElementHTML: function (data) {
 		var mass = '';
 		
 		if(data.mass > 0){
@@ -53,7 +48,28 @@ var core = {
 				'</div>';
 	},
 	
-	createSpacerHTML: function(data){
+	createAdditionalElementHTML: function (data) {
+		var mass = '';
+		
+		if(data.mass > 0){
+			if(data.isotope_mass === true){
+				mass = '[' + data.mass + ']';
+			}else{
+				mass = data.mass;
+			}
+		}
+	
+		return '<div class="element unit-1 row-height" data-id="' + data.id + '">' + 
+					'<a href="#">' + 
+						'<span class="number">' + data.number + '</span>' + 
+						'<span class="name element-type-' + data.type + '">' + data.name + '</span>' + 
+						'<span class="title">' + data.title + '</span>' + 
+						'<span class="mass">' + mass + '</span>' +
+					'</a>' + 
+				'</div>';
+	},
+	
+	createSpacerHTML: function (data) {
 		var html = '',
 			i = 0;
 		
@@ -65,7 +81,7 @@ var core = {
 		return html;
 	},
 	
-	createLinkHTML: function(data){
+	createLinkHTML: function (data) {
 		return '<div class="element link unit-' + data.width + ' row-height" data-id="' + data.id + '" data-period="' + data.period + '" data-group="' + data.group + '" data-row="' + data.row + '" data-sub="' + data.sub + '">' + 
 					'<a href="#">' + 
 						'<span class="sub">' + data.sub + '</span>' + 
@@ -78,7 +94,7 @@ var core = {
 		return html;
 	},
 	
-	createVoidnessHTML: function(data){
+	createVoidnessHTML: function (data) {
 		return '<div class="element voidness unit-' + data.width + ' row-height" data-id="' + data.id + '" data-period="' + data.period + '" data-group="' + data.group + '" data-row="' + data.row + '" data-sub="' + data.sub + '">' + 
 					'<a href="#">' + 
 						'<span class="sub">' + data.sub + '</span>' + 
@@ -89,7 +105,7 @@ var core = {
 		return html;
 	},
 	
-	drawElementsRows: function(period_num) {
+	drawElementsRows: function (period_num) {
 		var html = '',
 			count = 0,
 			elements = this.getElementsForPeriod(period_num);
@@ -138,6 +154,23 @@ var core = {
 		$('.elements .period-row').each(function(){
 			$(this).find('.period-content').html(core.drawElementsRows($(this).data('period')));
 		});
+	},
+	
+	drawLanthanides: function() {
+		var html = '',
+			items = this.data.lanthanides;
+	
+		for(var i = 0, l = items.length; i < l; i++){	
+			html += this.createAdditionalElementHTML(items[i]);
+		}
+		
+		$('.lanthanides-content').html(html);
+	},
+	
+	init: function() {
+		this.drawElements();
+		this.bindCoordinatesIndicator();
+		this.drawLanthanides();
 	}
 }
 
