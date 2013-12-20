@@ -32,13 +32,23 @@ var core = {
 	},
 	
 	createElementHTML: function(data){
-		return '<div class="element unit-' + data.width + ' row-height" data-id="' + data.id + '" data-period="' + data.period + '" data-group="' + data.group + '" data-row="' + this.row_num + '" data-sub="' + data.sub + '">' + 
+		var mass = '';
+		
+		if(data.mass > 0){
+			if(data.isotope_mass === true){
+				mass = '[' + data.mass + ']';
+			}else{
+				mass = data.mass;
+			}
+		}
+	
+		return '<div class="element unit-' + data.width + ' row-height" data-id="' + data.id + '" data-period="' + data.period + '" data-group="' + data.group + '" data-row="' + data.row + '" data-sub="' + data.sub + '">' + 
 					'<a href="#">' + 
 						'<span class="sub">' + data.sub + '</span>' + 
 						'<span class="number">' + data.number + '</span>' + 
 						'<span class="name element-type-' + data.type + '">' + data.name + '</span>' + 
 						'<span class="title">' + data.title + '</span>' + 
-						'<span class="mass">' + data.mass + '</span>' + 
+						'<span class="mass">' + mass + '</span>' +
 					'</a>' + 
 				'</div>';
 	},
@@ -48,9 +58,33 @@ var core = {
 			i = 0;
 		
 		while(i < data.width){
-		 	html += '<div class="spacer unit-1 row-height" data-id="' + data.id + '" data-period="' + data.period + '" data-group="' + data.group + '" data-row="' + this.row_num + '"><span></span></div>';
+		 	html += '<div class="spacer unit-1 row-height" data-id="' + data.id + '" data-period="' + data.period + '" data-group="' + data.group + '" data-row="' + data.row + '"><span></span></div>';
 		 	i++;
 		}
+	
+		return html;
+	},
+	
+	createLinkHTML: function(data){
+		return '<div class="element link unit-' + data.width + ' row-height" data-id="' + data.id + '" data-period="' + data.period + '" data-group="' + data.group + '" data-row="' + data.row + '" data-sub="' + data.sub + '">' + 
+					'<a href="#">' + 
+						'<span class="sub">' + data.sub + '</span>' + 
+						'<span class="number">' + data.number + '</span>' + 
+						'<span class="name element-type-' + data.type + '">' + data.name + '</span>' + 
+						'<span class="title">' + data.title + '</span>' + 
+					'</a>' + 
+				'</div>';
+	
+		return html;
+	},
+	
+	createVoidnessHTML: function(data){
+		return '<div class="element voidness unit-' + data.width + ' row-height" data-id="' + data.id + '" data-period="' + data.period + '" data-group="' + data.group + '" data-row="' + data.row + '" data-sub="' + data.sub + '">' + 
+					'<a href="#">' + 
+						'<span class="sub">' + data.sub + '</span>' + 
+						'<span class="number">' + data.number + '</span>' +
+					'</a>' + 
+				'</div>';
 	
 		return html;
 	},
@@ -81,9 +115,16 @@ var core = {
 				html += '<span class="row-num row-height" data-row="' + this.row_num + '"><span>' + this.row_num + '</span></span>';
 			}
 			
-			if(elements[i].spacer === true){
+			if (elements[i].spacer === true){
 				html += this.createSpacerHTML(elements[i]);
-			}else{
+				
+			} else if (elements[i].link === true){
+				html += this.createLinkHTML(elements[i]);
+				
+			} else if (elements[i].voidness === true){
+				html += this.createVoidnessHTML(elements[i]);
+				
+			} else {
 				html += this.createElementHTML(elements[i]);
 			}
 		}

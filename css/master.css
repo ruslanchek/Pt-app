@@ -68,6 +68,14 @@ header .logo-place p {
 /* @end */
 
 
+/* @group Footer */
+footer {
+	padding: 20px 45px;
+	color: #999;
+}
+/* @end */
+
+
 /* @group General */
 .table-container {
 	margin: 0 auto;
@@ -247,7 +255,6 @@ header .logo-place p {
 	color: rgba(204, 204, 204, 0);
 	z-index: 2;
 	display: block;
-	color
 }
 
 .elements.period-hover-enabled .period-row:hover {
@@ -319,11 +326,11 @@ header .logo-place p {
 }
 
 .element-type-fl {
-	color: #FFD900;
+	color: #9ACC03;
 }
 
 .element-type-fa {
-	color: #FFD900;
+	color: #359A00;
 }
 /* @end */
 
@@ -367,13 +374,14 @@ header .logo-place p {
 	text-align: right;
 	font-weight: 200;
 	font-size: 0.85em;
-	color: rgba(190, 190, 190, 1);
+	color: rgba(170, 170, 170, 1);
 }
 
 .elements .element a .name {
 	font-size: 3em;
 	display: block;
-	padding: 20px 0 10px;
+	height: 51px;
+	line-height: 63px;
 	font-weight: 500;
 }
 
@@ -389,7 +397,7 @@ header .logo-place p {
 	left: 5px;
 	font-weight: 200;
 	font-size: 0.85em;
-	color: rgba(190, 190, 190, 1);
+	color: rgba(170, 170, 170, 1);
 }
 
 .elements .element a .mass {
@@ -400,15 +408,17 @@ header .logo-place p {
 	text-align: center;
 	bottom: 0;
 	width: 100%;
-	color: rgba(190, 190, 190, 1);
+	color: rgba(170, 170, 170, 1);
 	opacity: 1;
 }
 
 .elements .element a:hover {
 	z-index: 10;
 }
+/* @end */
 
 
+/* @group Spacer and Disabled */
 .elements .spacer,
 .elements .disabled {
 	float: left;
@@ -446,6 +456,14 @@ header .logo-place p {
 	transform: scale(0) rotate(150deg);
 	-ms-transform: scale(0) rotate(150deg);
 	-webkit-transform: scale(0) rotate(150deg);
+}
+/* @end */
+
+
+/* @group Elements Link */
+.elements .element.link a .name {
+	font-size: 1.4em;
+	line-height: 76px;	
 }
 /* @end */
 
