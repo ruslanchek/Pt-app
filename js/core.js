@@ -221,7 +221,7 @@ var core = {
 							'</div>' + 
 							
 							'<div class="info">' + 
-								'<div class="sub">' + element.element.sub + '</div>' +
+								(( element.element.sub ) ? '<div class="sub">' + element.element.sub + '</div>' : '') +
 								'<div class="number">' + element.element.number + '</div>' +
 								'<div class="name element-type-' + element.element.type + '">' + element.element.name + '</div>' +
 								'<div class="title">' + element.element.title + '</div>' +
