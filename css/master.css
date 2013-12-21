@@ -86,27 +86,15 @@ footer .version {
 }
 
 footer .ff-logo {
-	position: relative;
-	padding-left: 63px !important;
-	height: 46px;
 	float: right;
-	line-height: 1.5em;
 }
 
 footer .ff-logo .ff-logo-image {
 	opacity: 0.7;
-	position: absolute;
-	left: 10px;
-	top: -1px;
+}
+
+footer .ff-logo a {
 	border: none;
-}
-
-footer .ff-logo .ff-logo-text {
-	
-}
-
-footer a:hover {
-	border-color: rgba(239,100,101,0.5);
 }
 /* @end */
 
@@ -564,10 +552,10 @@ footer a:hover {
 }
 
 .element-window.appear .ew-content {	
-	-webkit-animation: flip 450ms ease-out;
-	-moz-animation: flip 450ms ease-out;
-	-o-animation: flip 450ms ease-out;
-	animation: flip 450ms ease-out;
+	-webkit-animation: flip 410ms ease-out;
+	-moz-animation: flip 410ms ease-out;
+	-o-animation: flip 410ms ease-out;
+	animation: flip 410ms ease-out;
 
 	opacity: 1;
 }
