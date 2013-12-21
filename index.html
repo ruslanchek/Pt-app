@@ -5,10 +5,14 @@
 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
 
 	<link rel="stylesheet" type="text/css" href="css/master.css" />
 
-	<script src="http://code.jquery.com/jquery.min.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery-ui-1.10.3.custom.min.js"></script>
 	<script src="js/data.js"></script>
 	<script src="js/core.js"></script>
 </head>
@@ -22,7 +26,7 @@
 			</div>
 		</header>
 	
-		<div class="elements period-hover-enabled">
+		<div class="elements period-hover-enabled periods-show-always">
 			<div class="header-row">			
 				<div class="row">
 					<span class="col-num unit-1" data-group="1"><span>I<i></i></span></span>
@@ -38,7 +42,7 @@
 				</div>
 			</div>
 			
-			<div class="period-row all-300-ease-out-cubic" data-period="1">
+			<div class="period-row all-300-ease-out-cubic first" data-period="1">
 				<div class="period-name all-300-ease-out-cubic">Период 1</div>
 				<div class="period-content"></div>
 			</div>
@@ -73,7 +77,7 @@
 				<div class="period-content"></div>
 			</div>
 			
-			<div class="period-row all-300-ease-out-cubic" data-period="8">
+			<div class="period-row all-300-ease-out-cubic last" data-period="8">
 				<div class="period-name all-300-ease-out-cubic">Период 8</div>
 				<div class="period-content"></div>
 			</div>
@@ -115,8 +119,8 @@
 		<footer>
 			<div class="units-row-end">
 				<div class="unit-50">
-					&copy; 2014 Pt-app.ru<br>
-					Периодическая система химических элементов Д. И. Менделеева
+					&copy; 2014 Pt-app.ru <span class="version">(0.1 beta)</span><br>
+					Периодическая система химических элементов Д. И. Менделеева<br>
 				</div>
 				
 				<div class="unit-50">

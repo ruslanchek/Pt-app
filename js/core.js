@@ -1,6 +1,7 @@
 var core = {
 	data: data_source,
 	row_num: 0,
+	current_z_index: 1001,
 	
 	bindCoordinatesIndicator: function () {
 		$('.elements .element').hover(function () {
@@ -26,45 +27,39 @@ var core = {
 		});
 	},
 	
-	createElementHTML: function (data) {
-		var mass = '';
+	getElementMassHtml: function(mass, isotope_mass){
+		var html = '';
 		
-		if(data.mass > 0){
-			if(data.isotope_mass === true){
-				mass = '[' + data.mass + ']';
+		if(mass > 0){
+			if(isotope_mass === true){
+				html = '[' + mass + ']';
 			}else{
-				mass = data.mass;
+				html = mass;
 			}
 		}
+		
+		return html;
+	},
 	
+	createElementHTML: function (data) {
 		return '<div class="element unit-' + data.width + ' row-height' + ((data.compressed === true) ? ' compressed' : '') + ((data.temporary === true) ? ' temporary' : '') + '" data-id="' + data.id + '" data-period="' + data.period + '" data-group="' + data.group + '" data-row="' + data.row + '" data-sub="' + data.sub + '" data-number="' + data.number + '">' + 
 					'<a href="#">' + 
 						'<span class="sub">' + data.sub + '</span>' + 
 						'<span class="number">' + data.number + '</span>' + 
 						'<span class="name element-type-' + data.type + '">' + data.name + '</span>' + 
 						'<span class="title">' + data.title + '</span>' + 
-						'<span class="mass">' + mass + '</span>' +
+						'<span class="mass">' + this.getElementMassHtml(data.mass, data.isotope_mass) + '</span>' +
 					'</a>' + 
 				'</div>';
 	},
 	
-	createAdditionalElementHTML: function (data) {
-		var mass = '';
-		
-		if(data.mass > 0){
-			if(data.isotope_mass === true){
-				mass = '[' + data.mass + ']';
-			}else{
-				mass = data.mass;
-			}
-		}
-			
+	createAdditionalElementHTML: function (data) {			
 		return '<div class="element unit-1 row-height' + ((data.compressed === true) ? ' compressed' : '') + ((data.temporary === true) ? ' temporary' : '') + '" data-id="' + data.id + '" data-number="' + data.number + '">' + 
 					'<a href="#">' + 
 						'<span class="number">' + data.number + '</span>' + 
 						'<span class="name element-type-' + data.type + '">' + data.name + '</span>' + 
 						'<span class="title">' + data.title + '</span>' + 
-						'<span class="mass">' + mass + '</span>' +
+						'<span class="mass">' + this.getElementMassHtml(data.mass, data.isotope_mass) + '</span>' +
 					'</a>' + 
 				'</div>';
 	},
@@ -217,20 +212,60 @@ var core = {
 		if(e4[0]) return {element: e4[0], group: 'superactinides'};
 	},
 	
+	generateElementWindowHTMl: function(element){		
+		var html = '<div class="element-window">' +
+						'<div class="ew-content">' + 
+							'<div class="controls">' +
+								'<span class="handle" title="Двигать"></span>' +
+								'<a href="#" class="close-me" title="Закрыть"></a>' +
+							'</div>' + 
+							
+							'<div class="info">' + 
+								'<div class="sub">' + element.element.sub + '</div>' +
+								'<div class="number">' + element.element.number + '</div>' +
+								'<div class="name element-type-' + element.element.type + '">' + element.element.name + '</div>' +
+								'<div class="title">' + element.element.title + '</div>' +
+								'<div class="mass">' + this.getElementMassHtml(element.element.mass, element.element.isotope_mass) + '</div>' +
+							'</div>' +
+						'</div>' + 
+					'</div>';
+		
+		return $('<div/>').html(html).contents();
+	},
+	
 	openElementInfo: function($obj){
 		var element = this.getElmByNumber($obj.data('number')),
-			$clone = $obj.addClass('cloned').clone();
+			$ew = this.generateElementWindowHTMl(element);
 			
-		$clone.addClass('clone').appendTo('body');
+		$('body').append($ew);
 		
-		$clone.css({
-			top: $obj.find('a').offset().top - $clone.height() / 2 + $obj.find('a').height() / 2,
-			left: $obj.find('a').offset().left - $clone.width() / 2 + $obj.find('a').width() / 2
+		this.current_z_index++;
+
+		$ew.css({
+			top: $obj.find('a').offset().top - $ew.height() / 2 + $obj.find('a').height() / 2,
+			left: $obj.find('a').offset().left - $ew.width() / 2 + $obj.find('a').width() / 2,
+			zIndex: this.current_z_index
+		});
+				
+		setTimeout(function(){
+			$ew.addClass('appear');
+		}, 50);
+		
+		$ew.draggable({
+			addClasses: false
 		});
 		
-		setTimeout(function () {
-			$clone.addClass('appear all-320-ease-out-back');
-		}, 50);
+		$ew.on('mousedown', function(){
+			core.current_z_index++;
+		
+			$(this).addClass('dragging').css({
+				zIndex: core.current_z_index
+			});
+		});
+		
+		$ew.on('mouseup', function(){
+			$(this).removeClass('dragging');
+		});
 	},
 	
 	bindControls: function(){
@@ -243,6 +278,10 @@ var core = {
 			core.openElementInfo($(this).parent());
 			e.preventDefault();
 		});
+	},
+	
+	openElementByNumber: function(number){	
+		$('.elements .element[data-number="' + number + '"]').find('a').trigger('click');
 	},
 	
 	init: function() {
