@@ -248,7 +248,11 @@ var core = {
 		});
 				
 		setTimeout(function(){
-			$ew.addClass('appear');
+			$ew.addClass('appear animated');
+
+            setTimeout(function(){
+                $ew.removeClass('animated');
+            }, 410);
 		}, 50);
 		
 		$ew.draggable({
@@ -267,12 +271,19 @@ var core = {
 			$(this).removeClass('dragging');
 		});
 		
-		$ew.on('doubleclick', function(){
-			$(this).addClass('disappear');
-			
-			setTimeout(function(){
-				$(this).remove();
-			}, 450);
+		$ew.on('dblclick', function(){
+            if(!$(this).hasClass('animated')){
+                $(this).removeClass('appear').addClass('disappear');
+
+                $(this).animate({
+                    top: $obj.find('a').offset().top - $(this).height() / 2 + $obj.find('a').height() / 2,
+                    left: $obj.find('a').offset().left - $(this).width() / 2 + $obj.find('a').width() / 2
+                }, 410);
+
+                setTimeout(function(){
+                    $ew.remove();
+                }, 410);
+            }
 		});
 	},
 	
