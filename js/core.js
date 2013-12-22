@@ -212,7 +212,7 @@ var core = {
 		if(e4[0]) return {element: e4[0], group: 'superactinides'};
 	},
 	
-	generateElementWindowHTMl: function(element){		
+	generateElementWindowHTML: function(element){		
 		var html = '<div class="element-window">' +
 						'<div class="ew-content">' + 
 							'<div class="controls">' +
@@ -235,7 +235,7 @@ var core = {
 	
 	openElementInfo: function($obj){
 		var element = this.getElmByNumber($obj.data('number')),
-			$ew = this.generateElementWindowHTMl(element);
+			$ew = this.generateElementWindowHTML(element);
 			
 		$('body').append($ew);
 		
@@ -265,6 +265,14 @@ var core = {
 		
 		$ew.on('mouseup', function(){
 			$(this).removeClass('dragging');
+		});
+		
+		$ew.on('doubleclick', function(){
+			$(this).addClass('disappear');
+			
+			setTimeout(function(){
+				$(this).remove();
+			}, 450);
 		});
 	},
 	

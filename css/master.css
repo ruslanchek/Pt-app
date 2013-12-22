@@ -828,6 +828,43 @@ footer .ff-logo a {
 		transform: scale(1) rotateX(360deg);
 	}
 }
+
+@keyframes unflip {  
+	0% {
+		opacity: 1;
+		transform: scale(1);
+	}
+	
+	25% {
+		opacity: 1;
+		transform: scale(1.02);
+	}
+	
+	50% {
+		opacity: 1;
+		transform: scale(0.9);
+	}
+	
+	70% {
+		opacity: 0.75;
+		transform: scale(0.7);
+	}
+	
+	80% {
+		opacity: 0.5;
+		transform: scale(0.5);
+	}
+
+	90% {
+		opacity: 0.2;
+		transform: scale(0.2);
+	}
+
+	100% {
+		opacity: 0;
+		transform: scale(0.1);
+	}
+}
 /* @end */
 
 
