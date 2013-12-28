@@ -134,7 +134,7 @@ var data_source = {
 		
 		{period: 8, row: 12, group: 1, 	id: 122, 	number: 119, 	width: 1, sub: 'A', 	name: 'Uue', 	title: 'Унуненний', mass: 316, 		type: 's', isotope_mass: true, temporary: true},
 		{period: 8, row: 12, group: 2, 	id: 123, 	number: 120, 	width: 1, sub: 'A', 	name: 'Ubn', 	title: 'Унбинилий', mass: 320, 		type: 's', isotope_mass: true, temporary: true},
-		{period: 8, row: 12, group: 3, 	id: 124, 	number: '121&ndash;126', width: 1, sub: 'B', name: 'Ubu&mdash;Ubh', title: 'Суперакти&shy;ноиды', 	type: 'fsa', link: true, compressed: true},
+		{period: 8, row: 12, group: 3, 	id: 124, 	number: '121&ndash;126', width: 1, sub: 'B', name: 'Ubu&mdash;Ubh', title: 'Суперакти&shy;ноиды', 	type: 'g', link: true, compressed: true},
 		{period: 8, row: 12, group: 4, 	id: 125, 	spacer: true, 	width: 1},
 		{period: 8, row: 12, group: 5, 	id: 126, 	spacer: true, 	width: 1},
 		{period: 8, row: 12, group: 6, 	id: 127, 	spacer: true, 	width: 1},
