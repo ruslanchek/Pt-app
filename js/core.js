@@ -18,7 +18,6 @@ var core = {
 		}, function () {
 			$('.elements .header-row .col-num, .elements .row-num').removeClass('hl');
 		});
-		
 	},
 	
 	getElementsForPeriod: function (period_num) {

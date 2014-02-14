@@ -1,6 +1,6 @@
 var data_source = {
 	elements: [
-		{period: 1, row: 1, group: 1, 	id: 1, 		number: 1, 		width: 1, sub: 'A', 	name: 'H', 		title: 'Водород', 	mass: 1.00795, 	type: 's'},
+		{period: 1, row: 1, group: 1, 	id: 1, 		number: 1, 		width: 1, sub: 'A', 	name: 'H', 		title: 'Водород', 	mass: 1.00795, 	type: 's', electrons: [1]},
 		{period: 1, row: 1, group: 2, 	id: 2, 		spacer: true, 	width: 1},
 		{period: 1, row: 1, group: 3, 	id: 3, 		spacer: true, 	width: 1},
 		{period: 1, row: 1, group: 4, 	id: 4, 		spacer: true, 	width: 1},
@@ -10,7 +10,7 @@ var data_source = {
 		{period: 1, row: 1, group: 8, 	id: 8, 		spacer: true, 	width: 1},
 		{period: 1, row: 1, group: 8, 	id: 9, 		spacer: true, 	width: 1},
 		{period: 1, row: 1, group: 8, 	id: 10, 	spacer: true, 	width: 1},
-		{period: 1, row: 1, group: 8, 	id: 11, 	number: 2, 		width: 1, sub: 'A', 	name: 'He', 	title: 'Гелий', 	mass: 4.002602,	type: 's'},
+		{period: 1, row: 1, group: 8, 	id: 11, 	number: 2, 		width: 1, sub: 'A', 	name: 'He', 	title: 'Гелий', 	mass: 4.002602,	type: 's', electrons: [2]},
 		
 		{period: 2, row: 2, group: 1, 	id: 12, 	number: 3, 		width: 1, sub: 'A', 	name: 'Li', 	title: 'Литий', 	mass: 6.9412, 	type: 's'},
 		{period: 2, row: 2, group: 2, 	id: 13, 	number: 4, 		width: 1, sub: 'A', 	name: 'Be', 	title: 'Берилий', 	mass: 9.01218, 	type: 's'},

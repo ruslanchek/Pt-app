@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	
+	<title>Периодическая система химических элементов</title>
+	
+	<meta name="keywords" content="Таблца Менделеева, Химия, Химические элементы, Периодическая система, Атомная масса" />
+	<meta name="description" content="Веб-приложение Таблица Менделеева" />
+		
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
+
+	<link rel="stylesheet" type="text/css" href="css/master.css" />
+
+    <style>
+        #canvas {
+            height: 550px;
+            width: 550px;
+            background: #fff;
+        }
+    </style>
+
+	<script src="js/jquery.min.js"></script>
+	<script src="js/raphael.min.js"></script>
+
+    <script>
+        function colorLuminance(hex, lum) {
+
+            // validate hex string
+            hex = String(hex).replace(/[^0-9a-f]/gi, '');
+            if (hex.length < 6) {
+                hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+            }
+            lum = lum || 0;
+
+            // convert to decimal and change luminosity
+            var rgb = "#", c, i;
+            for (i = 0; i < 3; i++) {
+                c = parseInt(hex.substr(i*2,2), 16);
+                c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+                rgb += ("00"+c).substr(c.length);
+            }
+
+            return rgb;
+        }
+
+        function setOrbitDelay(i, orbit, delay, method){
+            setTimeout(function(){
+                method(i, orbit);
+            }, delay);
+        }
+
+        function setElectronDelay(i, electron, delay, method){
+            electron.__anim_to = setInterval(function(){
+                method(i, electron);
+            }, delay);
+        }
+
+        function electronCoords(angle, radius, center) {
+            var o = {},
+                radians_to_degrees = Math.PI / 180,
+                angle_ffset = 90;
+
+            o.x = radius * Math.cos((angle - angle_ffset) * radians_to_degrees) + center;
+            o.y = radius * Math.sin((angle - angle_ffset) * radians_to_degrees) + center;
+
+            return o;
+        }
+
+        var Atom = function(options){
+            var _this = this;
+
+            this.paper = null;
+
+            this.prepare = function (){
+                this.paper = Raphael(document.getElementById(options.div_id), options.size, options.size);
+            };
+
+            this.drawElectrons = function(orbit, radius){
+                var electron_size = options.radius / 7.5,
+                    angle = 0,
+                    ang_step = 360 / orbit.electrons;
+
+                orbit.electrons_obj = [];
+
+                for(var i = 0, l = orbit.electrons; i < l; i++){
+                    var x = 0,
+                        y = 0 - radius,
+                        coords = electronCoords(angle, radius, options.size / 2);
+
+                    var electron = this.paper.circle(coords.x, coords.y, 0)
+                        .attr({
+                            fill: orbit.color,
+                            stroke: 'none'
+                        })
+                        .animate({
+                            r: electron_size
+                        }, 800, 'elastic');
+
+                    electron.__anim_sa = angle;
+
+                    orbit.electrons_obj.push(electron);
+
+                    angle += ang_step;
+                }
+            };
+
+            this.drawOrbits = function(){
+                var step_m = options.radius / 2.4,
+                    orbits = [],
+                    lum = 0,
+                    lum_c = 0.015;
+
+                for(var i = 0, l = options.electrons.length; i < l; i++){
+                    var color = colorLuminance('#ddd', lum += lum_c);
+
+                    var orbit = _this.paper.circle(options.size / 2, options.size / 2, 1)
+                        .toBack()
+                        .attr({
+                            fill: '#fff',
+                            fillOpacity: 0,
+                            stroke: color
+                        }).hover(
+                            function(){
+                                this.attr({
+                                    stroke: options.color
+                                });
+
+                                $.each(this.electrons_obj, function(key, val){
+                                    val.attr({
+                                        fill: options.color
+                                    })
+                                });
+                            },
+                            function(){
+                                this.attr({
+                                    stroke: this.color
+                                });
+
+                                var _orbit_this = this;
+
+                                $.each(this.electrons_obj, function(key, val){
+                                    val.attr({
+                                        fill: _orbit_this.color
+                                    });
+                                });
+                            }
+                        );
+
+                    orbit.color = color;
+                    orbit.electrons = options.electrons[i];
+
+                    orbits.push(orbit);
+
+                    setOrbitDelay(i, orbit, 30 * i, function(i, orbit){
+                        var radius = options.radius + step_m * (i + 1);
+
+                        orbit.animate({
+                            r: radius
+                        }, 800, 'elastic');
+
+                        setTimeout(function(){
+                            _this.drawElectrons(orbit, radius);
+                        }, 550);
+                    });
+                }
+            };
+
+            this.drawCore = function(){
+                var circle = this.paper.circle(options.size / 2, options.size / 2, 1)
+                    .attr({
+                        fill: options.color,
+                        stroke: 'none'
+                    }).animate({
+                        r: options.radius
+                    }, 1000, 'elastic');
+
+                var text = this.paper.text(options.size / 2, options.size / 2, options.name)
+                    .attr({
+                        fill: '#FFF'
+                    }).animate({
+                        transform: 's' + options.radius / 12
+                    }, 1000, 'elastic');
+            };
+
+            this.draw = function() {
+                this.drawCore();
+
+                setTimeout(function(){
+                    _this.drawOrbits();
+                }, 120);
+            };
+
+            this.init = function() {
+                this.prepare();
+                this.draw();
+            };
+        };
+
+        $(function() {
+            var atom = new Atom({
+                div_id: 'canvas',
+                size: 550,
+                name: 'Ubb',
+                radius: 32,
+                color: '#FF669A',
+                electrons: [2,8,16,2]
+            });
+
+            atom.init();
+        });
+    </script>
+</head>
+<body>	
+    <div id="canvas"></div>
+</body>
+</html>
