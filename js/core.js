@@ -91,7 +91,7 @@ var Atom = function(options){
                 fill: options.color
             }, 100, '<>');
 
-            $('span.orbit[data-element_id="' + options.id + '"][data-element_orbit="' + val.orbit_name + '"]').css({
+            $('span.orbit[data-element_id="' + options.id + '"]:eq(' + orbit.__orbit_count + ')').css({
                 background: options.color,
                 color: '#fff'
             });
@@ -108,7 +108,7 @@ var Atom = function(options){
                 fill: orbit.color
             }, 100, '<>');
 
-            $('span.orbit[data-element_id="' + options.id + '"][data-element_orbit="' + val.orbit_name + '"]').css({
+            $('span.orbit[data-element_id="' + options.id + '"]:eq(' + orbit.__orbit_count + ')').css({
                 background: 'none',
                 color: '#999'
             });
@@ -124,8 +124,11 @@ var Atom = function(options){
         for(var i = 0, l = options.electrons.length; i < l; i++){
             var color = this.colorLuminance('#ddd', lum += lum_c);
 
-            var orbit = _this.paper.circle(options.size / 2, options.size / 2, 1)
-                .toBack()
+            var orbit = _this.paper.circle(options.size / 2, options.size / 2, 1);
+
+            orbit.__orbit_count = i;
+
+            orbit.toBack()
                 .attr({
                     fill: '#fff',
                     fillOpacity: 0,
@@ -190,6 +193,10 @@ var Atom = function(options){
     };
 
     this.init = function() {
+		if(options.electrons && options.electrons.length > 6){
+			options.radius = 28;
+		}
+
         this.prepare();
         this.draw();
     };
@@ -425,7 +432,7 @@ var core = {
                                 e_rows +
                                 '<i class="close-electrons icon-info" data-id="' + e.element.id + '"></i>' +
                             '</div>' +
-
+							'<div class="mass">' + this.getElementMassHtml(e.element.mass, e.element.isotope_mass) + '</div>' +
                             '<div class="electrons-canvas" id="ec_' + e.element.id + '"></div>' +
                         '</div>';
         }
@@ -532,9 +539,7 @@ var core = {
             }, 410);
 		}, 50);
 		
-		$ew.draggable({
-			addClasses: false
-		});
+		$ew.drags();
 		
 		$ew.on('mousedown', function(){
 			core.current_z_index++;
@@ -588,8 +593,10 @@ var core = {
 
             timer = setTimeout(function(){
                 $('body').removeClass('disable-hover');
-            }, 300);
+            }, 50);
         });
+
+        $('.cube').drags();
 	}
 };
 
