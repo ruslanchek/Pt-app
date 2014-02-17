@@ -170,7 +170,7 @@ var Atom = function(options){
                 r: options.radius
             }, 1000, 'elastic');
 
-        var text = this.paper.text(options.size / 2, 65, options.name)
+        var text = this.paper.text(options.size / 2, options.size / 2, options.name)
             .attr({
                 fill: '#fff'
             }).animate({
@@ -203,6 +203,7 @@ var Atom = function(options){
 };
 
 var core = {
+	opened: [],
 	data: data_source,
 	row_num: 0,
 	current_z_index: 1001,
@@ -427,6 +428,11 @@ var core = {
             e_rows_html = '<div class="electrons">' + e_rows + '<i class="show-electrons icon icon-dot-circled" data-id="' + e.element.id + '"></i></div>';
 
             e_html =    '<div class="ew-electrons" data-id="' + e.element.id + '">' +
+				            '<div class="controls">' +
+								//'<span class="handle icon-th" title="Двигать"></span>' +
+								'<a href="#" class="close-me icon-cancel" data-id="' + e.element.id + '" title="Закрыть"></a>' +
+							'</div>' +
+			
                             '<div class="title">' + e.element.title + '</div>' +
                             '<div class="electrons">' +
                                 e_rows +
@@ -440,13 +446,12 @@ var core = {
 		var html = '<div class="element-window" data-id="' + e.element.id + '">' +
 						'<div class="ew-content">' +
                             e_html +
-
-                            '<div class="controls">' +
-								//'<span class="handle icon-th" title="Двигать"></span>' +
-								'<a href="#" class="close-me icon-cancel" data-id="' + e.element.id + '" title="Закрыть"></a>' +
-							'</div>' +
 							
 							'<div class="info">' + 
+	                            '<div class="controls">' +
+									//'<span class="handle icon-th" title="Двигать"></span>' +
+									'<a href="#" class="close-me icon-cancel" data-id="' + e.element.id + '" title="Закрыть"></a>' +
+								'</div>' +
 								(( e.element.sub ) ? '<div class="sub">' + e.element.sub + '</div>' : '') +
 								'<div class="number">' + e.element.number + '</div>' +
 								'<div class="name element-type-' + e.element.type + '">' + e.element.name + '</div>' +
@@ -461,8 +466,10 @@ var core = {
 	},
 
     closeElementInfo: function($ew, $obj){
-        if(!$ew.hasClass('animated')){
-            $ew.removeClass('appear').addClass('disappear');
+		var id = $ew.data('id');
+	
+        if(this.checkForElementOpened(id) && !$ew.hasClass('animated')){
+            $ew.removeClass('stay appear flipcard').addClass('disappear');
 
             $ew.animate({
                 top: $obj.find('a').offset().top - $ew.height() / 2 + $obj.find('a').height() / 2,
@@ -472,6 +479,8 @@ var core = {
             setTimeout(function(){
                 $ew.remove();
             }, 410);
+
+			this.removeElementOpenedStatus(id);
         }
     },
 
@@ -489,73 +498,122 @@ var core = {
                 electrons: e.element.electrons
             });
         }
-
-        e.atom.clear();
-        e.atom.init();
-
-        $o.show();
+		
+		var $ew = $('.element-window[data-id="' + id + '"]');
+		
+		$ew.addClass('flipcard').removeClass('unflipcard');
+		
+		setTimeout(function(){			
+			$ew.addClass('flipcarded');
+		}, 410);
+		
+		setTimeout(function(){
+	        e.atom.clear();
+	        e.atom.init();
+		}, 410);
     },
 
     hideElectrons: function(id){
-        var $o = $('.ew-electrons[data-id="' + id + '"]');
-
-        $o.hide();
+        var $o = $('.ew-electrons[data-id="' + id + '"]'),
+			$ew = $('.element-window[data-id="' + id + '"]');
+		
+		$ew.removeClass('flipcard').addClass('unflipcard');
     },
+	
+	checkForElementOpened: function(id){
+		for(var i = 0, l = this.opened.length; i < l; i++){
+			if(this.opened[i] == id){
+				return true;
+			}
+		}
+	},
+	
+	removeElementOpenedStatus: function(id){
+		var new_arr = [];
+		
+		for(var i = 0, l = this.opened.length; i < l; i++){
+			if(this.opened[i] != id){
+				rnew_arr.push(this.opened[i]);
+			}
+		}
+		
+		this.opened = [];
+		this.opened = new_arr;
+	},
+	
+	addElementOpenedStatus: function(id){
+		if(this.checkForElementOpened(id) !== true){
+			this.opened.push(id);
+		}
+	},
 	
 	openElementInfo: function($obj){
 		var element = this.getElmByNumber($obj.data('number')),
-			$ew = this.generateElementWindowHTML(element);
-
-        var id = element.element.id;
-
-		$('body').append($ew);
-
-        $ew.find('.close-me').off('click').on('click', function(e){
-            e.preventDefault();
-            core.closeElementInfo($(this).parent().parent().parent(), $obj);
-        });
-
-        $ew.find('.show-electrons[data-id="' + id + '"]').on('click', function(){
-            core.showElectrons($(this).data('id'), element);
-        });
-
-        $ew.find('.close-electrons[data-id="' + id + '"]').on('click', function(){
-            core.hideElectrons($(this).data('id'));
-        });
+			id = element.element.id,
+			$ew;
 		
-		this.current_z_index++;
-
-		$ew.css({
-			top: $obj.find('a').offset().top - $ew.height() / 2 + $obj.find('a').height() / 2,
-			left: $obj.find('a').offset().left - $ew.width() / 2 + $obj.find('a').width() / 2,
-			zIndex: this.current_z_index
-		});
-				
-		setTimeout(function(){
-			$ew.addClass('appear animated');
-
-            setTimeout(function(){
-                $ew.removeClass('animated');
-            }, 410);
-		}, 50);
-		
-		$ew.drags();
-		
-		$ew.on('mousedown', function(){
-			core.current_z_index++;
-		
-			$(this).addClass('dragging').css({
-				zIndex: core.current_z_index
+		if(this.checkForElementOpened(id) === true){
+			$ew = $('.element-window[data-id="' + id + '"]');
+			
+			$ew.animate({
+				top: $obj.find('a').offset().top - $ew.height() / 2 + $obj.find('a').height() / 2,
+				left: $obj.find('a').offset().left - $ew.width() / 2 + $obj.find('a').width() / 2,
+				zIndex: this.current_z_index
 			});
-		});
+		} else {
+			$ew = this.generateElementWindowHTML(element);
+			
+			this.addElementOpenedStatus(id);
+			
+			$('body').append($ew);
+
+	        $ew.find('.close-me').off('click').on('click', function(e){
+	            e.preventDefault();
+	            core.closeElementInfo($('.element-window[data-id="' + $(this).data('id') + '"]'), $obj);
+	        });
+
+	        $ew.find('.show-electrons[data-id="' + id + '"]').on('click', function(){
+	            core.showElectrons($(this).data('id'), element);
+	        });
+
+	        $ew.find('.close-electrons[data-id="' + id + '"]').on('click', function(){
+	            core.hideElectrons($(this).data('id'));
+	        });
 		
-		$ew.on('mouseup', function(){
-			$(this).removeClass('dragging');
-		});
+			this.current_z_index++;
+
+			$ew.css({
+				top: $obj.find('a').offset().top - $ew.height() / 2 + $obj.find('a').height() / 2,
+				left: $obj.find('a').offset().left - $ew.width() / 2 + $obj.find('a').width() / 2,
+				zIndex: this.current_z_index
+			});
+				
+			setTimeout(function(){
+				$ew.addClass('appear animated');
+
+	            setTimeout(function(){
+	                $ew.removeClass('animated appear').addClass('stay');
+	            }, 410);
+			}, 50);
 		
-		$ew.on('dblclick', function(){
-            core.closeElementInfo($ew, $obj);
-		});
+			$ew.drags();
+		
+			$ew.on('mousedown', function(){
+				core.current_z_index++;
+		
+				$(this).addClass('dragging').css({
+					zIndex: core.current_z_index
+				});
+			});
+		
+			$ew.on('mouseup', function(){
+				$(this).removeClass('dragging');
+			});
+		
+			$ew.on('dblclick', function(){
+	            core.closeElementInfo($ew, $obj);
+			});
+		}		
 	},
 	
 	bindControls: function(){
