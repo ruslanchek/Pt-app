@@ -390,7 +390,30 @@ var core = {
             scrollTop: st
         }, 600, "swing");
 	},
-	
+
+	getElmById: function(id){
+		var e1 = jQuery.grep(this.data.elements, function(elm) {
+		  	return elm.id == id;
+		});
+		
+		var e2 = jQuery.grep(this.data.lanthanides, function(elm) {
+		  	return elm.id == id;
+		});
+		
+		var e3= jQuery.grep(this.data.actinides, function(elm) {
+		  	return elm.id == id;
+		});
+		
+		var e4 = jQuery.grep(this.data.superactinides, function(elm) {
+		  	return elm.id == id;
+		});
+		
+		if(e1[0]) return {element: e1[0], group: 'elements'};
+		if(e2[0]) return {element: e2[0], group: 'lanthanides'};
+		if(e3[0]) return {element: e3[0], group: 'actinides'};
+		if(e4[0]) return {element: e4[0], group: 'superactinides'};
+	},
+
 	getElmByNumber: function(number){
 		var e1 = jQuery.grep(this.data.elements, function(elm) {
 		  	return elm.number == number;
@@ -443,22 +466,25 @@ var core = {
                         '</div>';
         }
 
+        var i_html = '<div class="info">' + 
+                        '<div class="controls">' +
+							//'<span class="handle icon-th" title="Двигать"></span>' +
+							'<a href="#" class="close-me icon-cancel" data-id="' + e.element.id + '" title="Закрыть"></a>' +
+						'</div>' +
+						(( e.element.sub ) ? '<div class="sub">' + e.element.sub + '</div>' : '') +
+						'<div class="number">' + e.element.number + '</div>' +
+						'<div class="name element-type-' + e.element.type + '">' + e.element.name + '</div>' +
+						'<div class="title">' + e.element.title + '</div>' +
+						'<div class="mass">' + this.getElementMassHtml(e.element.mass, e.element.isotope_mass) + '</div>' +
+                        e_rows_html +
+					'</div>';
+
 		var html = '<div class="element-window" data-id="' + e.element.id + '">' +
 						'<div class="ew-content">' +
-                            e_html +
-							
-							'<div class="info">' + 
-	                            '<div class="controls">' +
-									//'<span class="handle icon-th" title="Двигать"></span>' +
-									'<a href="#" class="close-me icon-cancel" data-id="' + e.element.id + '" title="Закрыть"></a>' +
-								'</div>' +
-								(( e.element.sub ) ? '<div class="sub">' + e.element.sub + '</div>' : '') +
-								'<div class="number">' + e.element.number + '</div>' +
-								'<div class="name element-type-' + e.element.type + '">' + e.element.name + '</div>' +
-								'<div class="title">' + e.element.title + '</div>' +
-								'<div class="mass">' + this.getElementMassHtml(e.element.mass, e.element.isotope_mass) + '</div>' +
-                                e_rows_html +
-							'</div>' +
+							'<div class="flipper">' +
+	                            e_html +
+								i_html + 
+							'</div>' + 
 						'</div>' + 
 					'</div>';
 		
@@ -500,24 +526,24 @@ var core = {
         }
 		
 		var $ew = $('.element-window[data-id="' + id + '"]');
-		
-		$ew.addClass('flipcard').removeClass('unflipcard');
-		
-		setTimeout(function(){			
-			$ew.addClass('flipcarded');
+
+		setTimeout(function (){
+			e.atom.clear();
+			e.atom.init();
 		}, 410);
 		
-		setTimeout(function(){
-	        e.atom.clear();
-	        e.atom.init();
-		}, 410);
+		$ew.addClass('flipcard');
     },
 
-    hideElectrons: function(id){
-        var $o = $('.ew-electrons[data-id="' + id + '"]'),
+    hideElectrons: function(id, e){
+        var	$o = $('.ew-electrons[data-id="' + id + '"]'),
 			$ew = $('.element-window[data-id="' + id + '"]');
+
+		setTimeout(function (){
+			e.atom.clear();
+		}, 410);
 		
-		$ew.removeClass('flipcard').addClass('unflipcard');
+		$ew.removeClass('flipcard');
     },
 	
 	checkForElementOpened: function(id){
@@ -533,7 +559,7 @@ var core = {
 		
 		for(var i = 0, l = this.opened.length; i < l; i++){
 			if(this.opened[i] != id){
-				rnew_arr.push(this.opened[i]);
+				new_arr.push(this.opened[i]);
 			}
 		}
 		
@@ -577,7 +603,7 @@ var core = {
 	        });
 
 	        $ew.find('.close-electrons[data-id="' + id + '"]').on('click', function(){
-	            core.hideElectrons($(this).data('id'));
+	            core.hideElectrons($(this).data('id'), element);
 	        });
 		
 			this.current_z_index++;
