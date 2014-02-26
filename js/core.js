@@ -610,8 +610,7 @@ var core = {
 
 			$ew.css({
 				top: $obj.find('a').offset().top - $ew.height() / 2 + $obj.find('a').height() / 2,
-				left: $obj.find('a').offset().left - $ew.width() / 2 + $obj.find('a').width() / 2,
-				zIndex: this.current_z_index
+				left: $obj.find('a').offset().left - $ew.width() / 2 + $obj.find('a').width() / 2
 			});
 				
 			setTimeout(function(){
@@ -634,6 +633,12 @@ var core = {
 		
 			$ew.on('mouseup', function(){
 				$(this).removeClass('dragging');
+
+				core.current_z_index++;
+		
+				$(this).addClass('dragging').css({
+					zIndex: core.current_z_index
+				});
 			});
 		
 			$ew.on('dblclick', function(){
